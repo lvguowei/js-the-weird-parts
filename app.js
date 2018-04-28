@@ -96,3 +96,65 @@ document.addEventListener('click', clickHandler);
 waitThreeSeconds();
 console.log('finished execution');
 
+// Object
+// can have primitive "property", object "property", "function" method.
+
+var person = new Object(); // not the best way to create objects
+
+person["firstname"] = "Guowei";
+person["lastname"] = "Lv";
+
+var firstNameProperty = "firstname";
+
+console.log(person.firstname);
+console.log(person[firstNameProperty]);
+
+// object literal
+var obj = {"name": "Bob", "age": 10};
+
+// Faking namespaces, a container for variables and functions
+
+var english = {};
+var spanish = {};
+english.greet = "hello";
+spanish.greet = "Hola";
+
+// JSON and object literals
+var objectLiteral = {firstname: "Jane", isFemale: true};
+
+// XML has a lot of extra chars, not efficient to send across Internet
+// JSON is smaller, properties have to be wrapped in quotes
+
+console.log(JSON.stringify(objectLiteral));
+
+console.log(JSON.parse('{"firstname": "Jane", "isFemale": true}'));
+
+// Functions are objects
+// Two special properties: name, code(invocable).
+
+function greeting() {
+    console.log("hi");
+}
+
+greeting.language = 'english';
+
+console.log(greeting.language);
+
+// Function statements and function expressions
+
+// Expression: a unit of code that results in a value
+var i = 4; // = returns a value 4
+1+2
+
+// if is a statement, not returning a value
+if (i === 4) {}
+
+function statement() {
+    console.log("hi");
+}
+
+var functionExpression = function() {
+    console.log("hi");
+};
+
+functionExpression();
