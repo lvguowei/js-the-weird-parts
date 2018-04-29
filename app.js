@@ -290,7 +290,7 @@ function buildFunctions() {
 }
 var fs = buildFunctions();
 fs[0](); // 3
-fs[1](); // 3
+fs[1](); // 3 
 fs[2](); // 3
 
 // The old way to fix this is to use IIFE
@@ -310,3 +310,79 @@ fs = buildFunctions2();
 fs[0]();
 fs[1]();
 fs[2]();
+
+// Function factory
+
+function makeGreeting(language) {
+    return function(firstname, lastname) {
+        if (language === 'en') {
+            console.log('Hello ' + firstname + ' ' + lastname);
+        }
+
+        if (language === 'es') {
+            console.log('Hola ' + firstname + ' ' + lastname);
+        }
+    };
+}
+
+var greetEnglish = makeGreeting('en');
+var greetSpanish = makeGreeting('es');
+
+greetEnglish('Foo', 'Bar');
+greetSpanish('Foo', 'Bar');
+
+// Closure and callbacks
+
+function sayHiLater() {
+    var greeting = 'Hi!';
+    setTimeout(function() {
+        // can access the greeting because of closure
+        console.log(greeting);
+    }, 1000);
+}
+
+sayHiLater();
+
+// call() apply() and bind()
+var people = {
+    firstname: 'Guowei',
+    lastname: 'Lv',
+    getFullName: function() {
+        var fullname = this.firstname + ' ' + this.lastname;
+        return fullname;
+    }
+};
+
+var logName = function(lang1, lang2) {
+    console.log('Logged: ' + this.getFullName());
+    console.log('Arguments: ' + lang1 + ' ' + lang2);
+};
+
+// create a new function in which the 'this' is bound to people
+var logPeopleName = logName.bind(people);
+
+logPeopleName('en', 'es');
+
+logName.call(people, 'en', 'es');
+logName.apply(people, ['en', 'es']);
+
+// function currying
+
+function multiply(a, b) {
+    return a * b;
+}
+
+var multiplyByTwo = multiply.bind(this, 2);
+
+console.log(multiplyByTwo(3));
+
+// Functional programming
+// Learn from underscore JS source code
+var arr1 = [1,2,3];
+
+var arr2 = _.map(arr1, function(x) {return 2 * x;});
+
+var arr3 = _.filter([1,2,3,4,5], function(x) {return x % 2 === 0;});
+
+console.log(arr2);
+console.log(arr3);
