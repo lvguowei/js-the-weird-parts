@@ -158,3 +158,87 @@ var functionExpression = function() {
 };
 
 functionExpression();
+
+// Objects, functions, and this
+// When a new function is envoked, a new execution context is created
+
+console.log(this); // the global window object
+
+function temp() {
+    console.log(this);
+};
+
+temp();
+
+var employee = {
+    name: 'Mike',
+    log: function() {
+        var self = this;
+        var setname = function(newname) {
+            self.name = newname; // BUG in JS: 'this' in nested functions are pointing to global object, so need to use 'self' explicitly
+        };
+
+        setname('another name');
+        console.log(this);
+    }
+};
+
+employee.log();
+
+// Array of anything
+
+var arr = [
+    1,
+    false,
+    {name: 'Amy', age: 3},
+    function(name) {
+        console.log(name);
+    },
+    "hello"
+];
+
+console.log(arr);
+
+// 'arguments'(will be depracated) and SPREAD
+
+function print(a, b, c) {
+    // default params
+    a = a || 0;
+    b = b || 0;
+    c = c || 0;
+
+    console.log(a);
+    console.log(b);
+    console.log(c);
+}
+
+print();
+print(1);
+print(1,2);
+print(1,2,3);
+
+function testArguments() {
+    console.log(arguments);
+}
+
+testArguments(1,2,3,4);
+
+function print2(a, b, c) {
+    if (arguments.length !== 3) {
+        console.log("wrong number of arguments");
+        return;
+    }
+    console.log(a);
+    console.log(b);
+    console.log(c);
+}
+print2(1,2);
+
+function testSpread(a, b, c, ...other) {
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log(other);
+}
+
+testSpread(1,2,3,4,5,6,7,8);
