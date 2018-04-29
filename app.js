@@ -16,8 +16,8 @@ function b() {
 // Setup memory space for variables and functions - "Hoisting"
 // All variables are initialized to 'undefined', but functions in its entirety
 
-add();           // this will be called normally
-console.log(s);  // this will output 'undefined'
+add(); // this will be called normally
+console.log(s); // this will output 'undefined'
 
 var s = 'Hello There'; // the assignment happens at runtime
 
@@ -40,13 +40,13 @@ console.log(fruit);
 // Each function call will cause a new execution context to be created and put on the stack
 
 function x() {} // x() execution context (create and execute)
-                // -------------------------------------------
-function y() {  // y() execution context (create and execute)
-    x();        //
-}               // -------------------------------------------
-                //
-y();            // global execution context
-                // -------------------------------------------
+// -------------------------------------------
+function y() { // y() execution context (create and execute)
+    x(); //
+} // -------------------------------------------
+//
+y(); // global execution context
+// -------------------------------------------
 
 // Scope chain
 // The reference to outer environment of a execution context is determined lexically
@@ -67,6 +67,7 @@ hugo();
 
 function g() {
     var myVar = 3;
+
     function inner() {
         console.log(myVar); // 3
     }
@@ -110,7 +111,10 @@ console.log(person.firstname);
 console.log(person[firstNameProperty]);
 
 // object literal
-var obj = {"name": "Bob", "age": 10};
+var obj = {
+    "name": "Bob",
+    "age": 10
+};
 
 // Faking namespaces, a container for variables and functions
 
@@ -120,7 +124,10 @@ english.greet = "hello";
 spanish.greet = "Hola";
 
 // JSON and object literals
-var objectLiteral = {firstname: "Jane", isFemale: true};
+var objectLiteral = {
+    firstname: "Jane",
+    isFemale: true
+};
 
 // XML has a lot of extra chars, not efficient to send across Internet
 // JSON is smaller, properties have to be wrapped in quotes
@@ -144,7 +151,7 @@ console.log(greeting.language);
 
 // Expression: a unit of code that results in a value
 var i = 4; // = returns a value 4
-1+2
+1 + 2
 
 // if is a statement, not returning a value
 if (i === 4) {}
@@ -190,7 +197,10 @@ employee.log();
 var arr = [
     1,
     false,
-    {name: 'Amy', age: 3},
+    {
+        name: 'Amy',
+        age: 3
+    },
     function(name) {
         console.log(name);
     },
@@ -214,14 +224,14 @@ function print(a, b, c) {
 
 print();
 print(1);
-print(1,2);
-print(1,2,3);
+print(1, 2);
+print(1, 2, 3);
 
 function testArguments() {
     console.log(arguments);
 }
 
-testArguments(1,2,3,4);
+testArguments(1, 2, 3, 4);
 
 function print2(a, b, c) {
     if (arguments.length !== 3) {
@@ -232,7 +242,7 @@ function print2(a, b, c) {
     console.log(b);
     console.log(c);
 }
-print2(1,2);
+print2(1, 2);
 
 function testSpread(a, b, c, ...other) {
     console.log(a);
@@ -241,4 +251,62 @@ function testSpread(a, b, c, ...other) {
     console.log(other);
 }
 
-testSpread(1,2,3,4,5,6,7,8);
+testSpread(1, 2, 3, 4, 5, 6, 7, 8);
+
+// Immediately invoked function expressions (IIFE)
+
+(function(name) {
+    var greeting = 'Hello '; // inside the function's execution context, not accessible from global
+    console.log(greeting + name);
+})('Jake');
+
+// How to access global objects
+(function(global) {
+    global.globalObject = "I'm global object!";
+})(window);
+
+console.log(globalObject);
+
+// Understanding closures
+
+function say(whatToSay) {
+    return function(name) {
+        // Even though the execution context of the outer function is popped out when this line is executed, it still has a link to the data in the outer execution context. This is called closure.
+        console.log(whatToSay + ' ' + name);
+    };
+}
+
+var sayHi = say('Hi');
+sayHi("Bob");
+
+function buildFunctions() {
+    var arr = [];
+    // all 3 functions has a link to the var i in the buildFunctions execution context.
+    // To fix this, use let instead of var. It will create a new variable each time.
+    for (var i = 0; i < 3; i++) {
+        arr.push(function() {console.log(i);});
+    }
+    return arr;
+}
+var fs = buildFunctions();
+fs[0](); // 3
+fs[1](); // 3
+fs[2](); // 3
+
+// The old way to fix this is to use IIFE
+function buildFunctions2() {
+    var arr = [];
+    // all 3 functions has a link to the var i in the buildFunctions execution context.
+    // To fix this, use let instead of var. It will create a new variable each time.
+    for (var i = 0; i < 3; i++) {
+        (function(n){
+            arr.push(function() {console.log(n);});
+        })(i);
+    }
+    return arr;
+}
+
+fs = buildFunctions2();
+fs[0]();
+fs[1]();
+fs[2]();
