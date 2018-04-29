@@ -284,13 +284,15 @@ function buildFunctions() {
     // all 3 functions has a link to the var i in the buildFunctions execution context.
     // To fix this, use let instead of var. It will create a new variable each time.
     for (var i = 0; i < 3; i++) {
-        arr.push(function() {console.log(i);});
+        arr.push(function() {
+            console.log(i);
+        });
     }
     return arr;
 }
 var fs = buildFunctions();
 fs[0](); // 3
-fs[1](); // 3 
+fs[1](); // 3
 fs[2](); // 3
 
 // The old way to fix this is to use IIFE
@@ -299,8 +301,10 @@ function buildFunctions2() {
     // all 3 functions has a link to the var i in the buildFunctions execution context.
     // To fix this, use let instead of var. It will create a new variable each time.
     for (var i = 0; i < 3; i++) {
-        (function(n){
-            arr.push(function() {console.log(n);});
+        (function(n) {
+            arr.push(function() {
+                console.log(n);
+            });
         })(i);
     }
     return arr;
@@ -378,11 +382,15 @@ console.log(multiplyByTwo(3));
 
 // Functional programming
 // Learn from underscore JS source code
-var arr1 = [1,2,3];
+var arr1 = [1, 2, 3];
 
-var arr2 = _.map(arr1, function(x) {return 2 * x;});
+var arr2 = _.map(arr1, function(x) {
+    return 2 * x;
+});
 
-var arr3 = _.filter([1,2,3,4,5], function(x) {return x % 2 === 0;});
+var arr3 = _.filter([1, 2, 3, 4, 5], function(x) {
+    return x % 2 === 0;
+});
 
 console.log(arr2);
 console.log(arr3);
