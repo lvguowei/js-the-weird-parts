@@ -394,3 +394,48 @@ var arr3 = _.filter([1, 2, 3, 4, 5], function(x) {
 
 console.log(arr2);
 console.log(arr3);
+
+// Understanding prototype
+
+var human = {
+    firstname: 'Default',
+    lastname: 'Default',
+    getFullName: function() {return this.firstname + ' ' + this.lastname;}
+};
+
+var john = {firstname: 'John', lastname: 'Doe'};
+
+// Don't do this EVER! For Demo purpose only!
+john.__proto__ = human;
+console.log(john.getFullName());
+
+var jane = {firstname: 'Jane'};
+jane.__proto__ = human;
+
+console.log(jane.getFullName());
+
+// Reflection:
+// An object can look at itself, listing and changing its properties and methods.
+
+for (var prop in john) {
+    if (john.hasOwnProperty(prop)) {
+        console.log(prop + ': ' + john[prop]);
+    }
+}
+
+var joe = {
+    address: 'some street',
+    getFormalFullName: function() {
+        return this.lastname + ', ' + this.firstname;
+    }
+};
+
+var jim = {
+    getFirstName: function() {
+        return firstName;
+    }
+};
+
+_.extend(john, joe, jim);
+
+console.log(john);
