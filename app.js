@@ -439,3 +439,20 @@ var jim = {
 _.extend(john, joe, jim);
 
 console.log(john);
+
+
+// Function constructors
+// A normal function that is used to construct objects, the 'this' variable points a new empty object, and that object is returned from the function automatically.
+
+function Cat(firstname, lastname) {
+    this.firstname = firstname;
+    this.lastname = lastname;
+    console.log('This function is invoked.');
+    // no return for constructor functions
+}
+// 1. An empty object is created
+// 2. Call the Cat function with 'this' pointing to the empty object
+// 3. As long as the Cat function has no return, it return the created object
+var cat = new Cat('Meow', 'Joe');
+
+console.log(cat);
