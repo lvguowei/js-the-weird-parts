@@ -456,3 +456,13 @@ function Cat(firstname, lastname) {
 var cat = new Cat('Meow', 'Joe');
 
 console.log(cat);
+
+// Every function has a 'prototype' property, which is not the prototype of this function! This 'prototype' property is only used when the function is used as constructor, and it becomes the prototype of the object created by this function.
+Cat.prototype.getFullName = function() {
+    return this.firstname + this.lastname;
+};
+
+console.log(cat.getFullName());
+
+// Methods are often added to the 'prototype' of the constructor function to save space. If method is added in the constructor through 'this', it will exist inside every object created by this function.
+
