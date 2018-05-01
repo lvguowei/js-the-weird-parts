@@ -549,3 +549,30 @@ class InformalHuman extends Human {
 var potter = new InformalHuman('Harry', 'potter');
 
 console.log(potter.greet());
+
+// typeof
+console.log(typeof 3);
+console.log(typeof "hello");
+console.log(typeof {});
+console.log(typeof []);
+console.log(Object.prototype.toString.call([]));
+
+console.log(typeof undefined);
+console.log(typeof null);
+
+// instanceof
+
+console.log(cat instanceof Cat);
+
+var z = function() {};
+console.log(typeof z);
+
+// strict mode
+
+// Has to be at the top of the file, or at the top of a function
+"use strict";
+
+var handler;
+handlar = {}; // This is not allowed in strict mode
+console.log(handlar);
+
