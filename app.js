@@ -489,3 +489,63 @@ for (var p in names) {
 for (var i = 0; i < names.length; i++) {
     console.log(names[i]);
 }
+
+
+// Object.create and pure prototypal inheritance
+
+var dog = {
+    firstname: 'Default',
+    lastname: 'Default',
+    greet: function() {
+        return 'Hi' + this.firstname;
+    }
+};
+
+var bull = Object.create(dog);
+bull.firstname = 'Happy';
+bull.lastname = 'Doggy';
+console.log(bull);
+
+// Polyfill
+// Code that adds a feature which the engine may lack.
+
+if (!Object.create) {
+    Object.create = function(o) {
+        if (arguments.length > 1) {
+            throw new Error('Object.create implementation only accept the first parameter');
+        }
+        function F() {}
+        F.prototype = o;
+        return new F();
+    };
+}
+
+// ES6 and classes
+
+class Human {
+    constructor(firstname, lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    greet() {
+        return 'Hi ' + this.firstname;
+    }
+}
+var peter = new Human('Peter', 'Pan');
+
+console.log(peter.greet());
+
+class InformalHuman extends Human {
+    constructor(firstname, lastname) {
+        super(firstname, lastname);
+    }
+
+    greet() {
+        return 'Yo ' + this.firstname;
+    }
+}
+
+var potter = new InformalHuman('Harry', 'potter');
+
+console.log(potter.greet());
