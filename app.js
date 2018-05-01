@@ -466,3 +466,26 @@ console.log(cat.getFullName());
 
 // Methods are often added to the 'prototype' of the constructor function to save space. If method is added in the constructor through 'this', it will exist inside every object created by this function.
 
+// Built-in function constructors
+String.prototype.isLengthGreaterThan = function(limit) {
+    return this.length > limit;
+};
+
+// "abc" will be automatically converted to String object
+console.log("abc".isLengthGreaterThan(5));
+
+
+// Arrays and for-in
+Array.prototype.someRandomeFunction = function() {};
+
+var names = ['John', 'Jane', 'Jim'];
+
+// Don't use for-in for arrays, might include some unwanted property
+for (var p in names) {
+    console.log(p + ': ' + names[p]);
+}
+
+// Instead just use the old way
+for (var i = 0; i < names.length; i++) {
+    console.log(names[i]);
+}
