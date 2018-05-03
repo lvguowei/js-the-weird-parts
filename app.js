@@ -575,4 +575,3 @@ console.log(typeof z);
 var handler;
 handlar = {}; // This is not allowed in strict mode
 console.log(handlar);
-
