@@ -63,7 +63,7 @@ function hugo() { // outer environment is global execution context
 var myVar = 1;
 hugo();
 
-// another exmample
+// another example
 
 function g() {
     var myVar = 3;
@@ -573,5 +573,11 @@ console.log(typeof z);
 "use strict";
 
 var handler;
-handlar = {}; // This is not allowed in strict mode
-console.log(handlar);
+// handlar = {}; // This is not allowed in strict mode
+
+// Example of Greeter.js
+$('#login').click(function() {
+    var login = G$('John', 'Doe');
+    $('#logindiv').hide();
+    login.setLang($('#lang').val()).HTMLGreeting('#greeting', true).log();
+});
